@@ -67,7 +67,7 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
     // Step 7: Append the axes to the chart by appending another g
     //X axis
     chartGroup.append("g")
-        .attr("transform", `translate(0, ${height}`)
+        .attr("transform", `translate(0, ${height})`)
         .call(bottomAxis);
     //Y axis
         chartGroup.append("g")
@@ -113,7 +113,7 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
     //flips text to read sideways up the chart
     .attr("transform", "rotate(-90)")
     .attr("y", 0 - margin.left + 40)
-    .attr("x", 0 - (height/2) -2)
+    .attr("x", 0 - (height/2))
     .attr("dy", "1em")
     .attr("class", "axisText")
     .attr("Lacks Healthcare (%)")
