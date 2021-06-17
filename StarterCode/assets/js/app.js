@@ -60,5 +60,16 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
         .range([height, 0]);
 
 
-    //Step 6: Set up the y-axis domain
-    //
+    //Step 6: Create the axes
+    var bottomAxis = d3.axisBottom(xLinearScale);
+    var leftAxis = d3.axisLeft(yLinearScale);
+
+    // Step 7: Append the axes to the chart by appending another g
+    //X axis
+    chartGroup.append("g")
+        .attr("transform", `translate(0, ${height}`)
+        .call(bottomAxis);
+    //Y axis
+        chartGroup.append("g")
+        .call(leftAxis);
+
