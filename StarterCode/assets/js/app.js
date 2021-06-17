@@ -21,10 +21,44 @@ var width = chartWidth - margin.left - margin.right;
 var height = chartHeight - margin.top - margin.bottom;
 
 //Step 2: Create SVG Wrapper
+//Create a variable called SVG that will point to SVG area - select body portion of HTML/DOM
+var svg = d3.select('#scatter')
+.append("svg")
+.attr("width", svgWidth)
+.attr("height", svgHeight)
 
-
+//Create var chart group by appending a HTML g
+var chartGroup = svg.append("g")    
+    //Program this transform element to be a translation -- moves it over and down by the amount of the margins
+    .attr("transform", `translate(${margin.left}, ${margin.top})`);     
 
 
 //Step 3: Import Data from data.csv file
+//read CSV file
+d3.csv("assets/data/data.csv").then(function(stateData) {
+    //console.log(stateData)
+
+    //Step 4: Parse the data
+    //Format the data and convert it to numerical values
+
+    //Format the data
+    stateData.forEach(function(stateData) {
+        data.poverty = +data.poverty;
+        data.healthcare = +data.healthcare;
+        //console.log(stateData);
+    });
+
+    //Step 5: Create the Scales for the chart
+    // 
+    var xLinearScale = d3.scaleLinear()
+        //Set the domain as the minimum and maximum of the values in the data
+        .domain([0, d3.max(stateData, d => d.poverty)])
+        .range([0, width]);
+
+    var yLinearScale = d3.scaleLinear()
+        .domain([0, d3.max(stateData, d => d.healthcare)])
+        .range([height, 0]);
 
 
+    //Step 6: Set up the y-axis domain
+    //
