@@ -17,8 +17,8 @@ var margin = {
 };
 
 //define width and height for chart
-var width = chartWidth - margin.left - margin.right;
-var height = chartHeight - margin.top - margin.bottom;
+var width = svgWidth - margin.left - margin.right;
+var height = svgHeight - margin.top - margin.bottom;
 
 //Step 2: Create SVG Wrapper
 //Create a variable called SVG that will point to SVG area - select body portion of HTML/DOM
@@ -43,8 +43,8 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
 
     //Format the data
     stateData.forEach(function(stateData) {
-        data.poverty = +data.poverty;
-        data.healthcare = +data.healthcare;
+        stateData.poverty = +stateData.poverty;
+        stateData.healthcare = +stateData.healthcare;
         //console.log(stateData);
     });
 
@@ -106,7 +106,7 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
         //onmouse event
         .on("mouseout", function(data, index) {
             toolTip.hide(Data);
-)}
+    }); 
 
     //Step 11: Create axes labels
     chartGroup.append("text")
@@ -116,11 +116,11 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
     .attr("x", 0 - (height/2) -2)
     .attr("dy", "1em")
     .attr("class", "axisText")
-    .attr("Lacks Healthcare (%)");
+    .attr("Lacks Healthcare (%)")
 
     chartGroup.append("text")
     .attr("transform", `translate(${(width / 2) }, ${height + margin.top + 30})`)
     .attr("class", "axisText")
     .attr("In Poverty (%)");   
-});
+}); 
 
