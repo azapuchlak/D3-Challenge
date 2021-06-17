@@ -73,3 +73,54 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
         chartGroup.append("g")
         .call(leftAxis);
 
+    //Step 8: Create Circles (1:50ish in class vid)
+    var circlesGroup = chartGroup.selectAll("circle")
+    .data(stateData)
+    .enter()
+    .append("circle")
+    .attr("cx", d => xLinearScale(d.poverty))
+    .attr("cy", d => yLinearScale(d.healthcare))
+    .attr("r", "15")
+    .attr("fill", "blue")
+    .attr("opacity", ".75");
+
+    //Step 9: Initialize a tool tip
+    var toolTip = d3.tip()
+    .attr("class", "tooltip")
+    .offset([80,-60])
+    .html(function(d) {
+        return (`${d.state}<br>Percent in Poverty: ${d.poverty}<br>Percent Lacks Healthcare: ${d.healthcare}`);
+    });
+
+    //Step 9: Create tool tip in the chart
+    //attach to chart group
+    chartGroup.call(toolTip);
+
+    //Step 10: Create event listeners to display and hide the tooltip
+    //On mouse click show data; on mouse out you hide it
+
+    circlesGroup.on("click", function(data) {
+        toolTip.show(data, this);
+    })
+
+        //onmouse event
+        .on("mouseout", function(data, index) {
+            toolTip.hide(Data);
+)}
+
+    //Step 11: Create axes labels
+    chartGroup.append("text")
+    //flips text to read sideways up the chart
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left + 40)
+    .attr("x", 0 - (height/2) -2)
+    .attr("dy", "1em")
+    .attr("class", "axisText")
+    .attr("Lacks Healthcare (%)");
+
+    chartGroup.append("text")
+    .attr("transform", `translate(${(width / 2) }, ${height + margin.top + 30})`)
+    .attr("class", "axisText")
+    .attr("In Poverty (%)");   
+});
+
